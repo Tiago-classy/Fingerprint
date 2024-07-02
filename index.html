@@ -1,10 +1,65 @@
-<script src="https://fpjscdn.net/v3/OBfCfu9DsL9z1a15IqSl/iife.min.js"></script>
-<script>
-  // Initialize the agent at application startup.
-  var fpPromise = FingerprintJS.load()
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitor Info Card</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            padding: 20px;
+            margin: 20px;
+            text-align: center;
+        }
+        .card h4 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .card p {
+            margin: 5px 0;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="container">
+            <h4><b>YOUR ID</b></h4>
+            <p id="visitor-id">Loading...</p>
+            <h4><b>IP</b></h4>
+            <p>148.69.64.80</p>
+            <h4><b>BROWSER</b></h4>
+            <p>Chrome on MAC OS X</p>
+            <h4><b>INCOGNITO</b></h4>
+            <p>NO</p>
+            <h4><b>VPN</b></h4>
+            <p>NO</p>
+        </div>
+    </div>
+    <script src="https://fpjscdn.net/v3/OBfCfu9DsL9z1a15IqSl/iife.min.js"></script>
+    <script>
+        // Initialize the agent at application startup.
+        var fpPromise = FingerprintJS.load();
 
-  // Analyze the visitor when necessary.
-  fpPromise
-    .then(fp => fp.get())
-    .then(result => console.log(result.requestId, result.visitorId , result))
-</script>
+        // Analyze the visitor when necessary.
+        fpPromise
+            .then(fp => fp.get())
+            .then(result => {
+                document.getElementById('visitor-id').textContent = result.visitorId;
+                console.log(result.requestId, result.visitorId , result);
+            });
+    </script>
+</body>
+</html>
