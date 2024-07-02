@@ -1,16 +1,10 @@
+<script src="https://fpjscdn.net/v3/OBfCfu9DsL9z1a15IqSl/iife.min.js"></script>
 <script>
-    // Initialize the agent on page load.
-    const fpPromise = import('https://fpjscdn.net/v3/OBfCfu9DsL9z1a15IqSl')
-      .then(FingerprintJS => FingerprintJS.load({
-        region: "eu"
-      }))
-  
-    // Get the visitorId when you need it.
-    fpPromise
-      .then(fp => fp.get())
-      .then(result => {
-        // const visitorId = result.visitorId
-        console.log(result)
-      })
-  
-  </script>
+  // Initialize the agent at application startup.
+  var fpPromise = FingerprintJS.load()
+
+  // Analyze the visitor when necessary.
+  fpPromise
+    .then(fp => fp.get())
+    .then(result => console.log(result.requestId, result.visitorId))
+</script>
